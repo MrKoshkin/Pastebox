@@ -1,0 +1,23 @@
+# Port
+server:
+  port: 9998
+
+spring:
+  #  main:
+  #    # ?????????? ??????????? ???????????? (?????? ?? ?????????????)
+  #    allow-circular-references: true
+
+  # PostgreSQL configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pastebox
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: Sa2022@@!!
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    # Show database query message in the console
+    show-sql: true
