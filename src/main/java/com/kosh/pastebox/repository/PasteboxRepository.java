@@ -1,13 +1,10 @@
 package com.kosh.pastebox.repository;
 
 import com.kosh.pastebox.entity.PasteBoxEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface PasteboxRepository extends JpaRepository<PasteBoxEntity, Long> {
 
-public interface PasteboxRepository {
-    PasteBoxEntity getByHash(String hash);
+    PasteBoxEntity findByHash(String hash);
 
-    List<PasteBoxEntity> getListOfPublicAndAlive(int amount);
-
-    void add(PasteBoxEntity pasteBoxEntity);
 }
