@@ -7,6 +7,8 @@ import com.kosh.pastebox.service.PasteboxService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -14,8 +16,8 @@ public class PasteboxController {
     private final PasteboxService pasteboxService;
 
     @GetMapping("/")
-    public void getPublicPasteList() {
-
+    public Collection<PasteboxResponse> getPublicPasteList() {
+        return pasteboxService.getFirstPublicPaste();
     }
 
     @GetMapping("/{hash}")

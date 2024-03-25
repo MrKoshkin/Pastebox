@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,12 @@ public class PasteboxServiceImpl implements PasteboxService{
 
     @Override
     public List<PasteboxResponse> getFirstPublicPaste() {
-        return null;
+        List<PasteBoxEntity> list = repository.getListOfPublicAndAlive(properties.getPublicListSize());
+
+        return list.stream().map(pasteBoxEntity ->
+                        new PasteboxResponse(pasteBoxEntity.getData(), pasteBoxEntity.isPublic()))
+                .collect(Collectors.toList());
+
     }
 
     @Override
