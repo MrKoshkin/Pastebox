@@ -6,6 +6,7 @@ import com.kosh.pastebox.api.response.PasteboxResponse;
 import com.kosh.pastebox.api.response.PasteboxUrlResponse;
 import com.kosh.pastebox.conf.PasteboxProperties;
 import com.kosh.pastebox.entity.PasteBoxEntity;
+import com.kosh.pastebox.exception.NotFoundEntityException;
 import com.kosh.pastebox.repository.PasteboxRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Setter
-public class PasteboxServiceImpl implements PasteboxService{
+public class PasteboxServiceImpl implements PasteboxService {
 
     private final PasteboxProperties properties;
     private final PasteboxRepository repository;
@@ -28,6 +28,10 @@ public class PasteboxServiceImpl implements PasteboxService{
     @Override
     public PasteboxResponse getByHash(String hash) {
         PasteBoxEntity pasteBoxEntity = repository.findByHash(hash);
+        if (pasteBoxEntity == null) {
+            throw new NotFoundEntityException("Pastebox not found with hash=" + hash);
+        }
+
         return new PasteboxResponse(pasteBoxEntity.getData(), pasteBoxEntity.isPublic());
     }
 
@@ -60,7 +64,7 @@ public class PasteboxServiceImpl implements PasteboxService{
         Long nextHash = 1L;
 
         if (maxHash != null) {
-            nextHash=maxHash+1;
+            nextHash = maxHash + 1;
         }
 
         return Long.toHexString(nextHash);
