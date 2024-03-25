@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@Table(name = "pastebox")
 public class PasteBoxEntity {
 
     @Id
@@ -18,7 +19,7 @@ public class PasteBoxEntity {
     @Column(columnDefinition = "TEXT")
     private String data;
 
-    @Column(columnDefinition = "VARCHAR(500)")
+    @Column(columnDefinition = "VARCHAR(500)", unique = true)
     private String hash;
 
     @Column(columnDefinition = "TIMESTAMP")

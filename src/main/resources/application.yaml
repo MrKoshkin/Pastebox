@@ -4,7 +4,7 @@ server:
 
 app:
   host: http://pastebox.com
-  public_list_size: ${LIST_SIZE}
+  public_list_size: 10
 
 spring:
   #  main:
@@ -25,3 +25,6 @@ spring:
 
     # Show database query message in the console
     show-sql: true
+
+    hibernate:
+      ddl-auto: update
